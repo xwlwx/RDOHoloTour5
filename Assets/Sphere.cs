@@ -14,8 +14,12 @@ public class Sphere : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
         //Logans Comment 
         //Logans Comment 2
-		
+
+        //Logans Comment
+        //Colton's second change
+
 	}
 }
