@@ -13,6 +13,6 @@ public class Sphere : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+		//hi logan
 	}
 }
