@@ -8,11 +8,13 @@ public class Sphere : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        //Logans Comment
 		
 	}
 	
 	// Update is called once per frame
 	void Update () {
+        //Logans Comment
 		
 	}
 }
