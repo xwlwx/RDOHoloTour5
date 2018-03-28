@@ -18,8 +18,13 @@
   </rule>  
   
   <rule id="locator" scope="public">
-    <item> Where is </item>
+    <item> Where </item>
+    <one-of>
+      <item> is </item>
+      <item> does </item>
+    </one-of>
     <ruleref uri ="#name"/>
+    <item repeat="0-1"> sit </item>
     <tag> out.context="location"; out.name = rules.name; </tag>
   </rule>
 
@@ -41,7 +46,7 @@
     </one-of>
     <item repeat="0-1"> the </item>
     <ruleref uri="#modifiableObjects"/>
-    <tag> out.mobj = rules.modifiableObjects.mobj; </tag>
+    <tag> out.object = rules.modifiableObjects.object; </tag>
     <item repeat="0-1"> color </item>
     <item repeat="0-1"> to </item>
     <ruleref uri="#colors"/>
@@ -52,12 +57,12 @@
   <rule id="modifiableObjects" scope="public">
     <one-of>
       <item>
-        tractor <tag> out.mobj = "tractor"; </tag>
+        tractor <tag> out.object = "tractor"; </tag>
       </item>
       <item>
         <item repeat="0-1"> tractor </item>
         tires
-        <tag> out.mobj = "tires"; </tag>
+        <tag> out.object = "tires"; </tag>
       </item>
     </one-of>
   </rule>

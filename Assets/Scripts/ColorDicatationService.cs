@@ -27,16 +27,16 @@ public class ColorDicatationService : MonoBehaviour {
         {
             StringColorDictionary = new Dictionary<string, Color>();
         }
-        StringColorDictionary.Add("BLUE", Color.blue);
-        StringColorDictionary.Add("YELLOW", Color.yellow);
-        StringColorDictionary.Add("BLACK", Color.black);
-        StringColorDictionary.Add("GREY", Color.grey);
-        StringColorDictionary.Add("GRAY", Color.gray);
-        StringColorDictionary.Add("WHITE", Color.white);
-        StringColorDictionary.Add("RED", Color.red);
-        StringColorDictionary.Add("CYAN", Color.cyan);
-        StringColorDictionary.Add("GREEN", Color.green);
-        StringColorDictionary.Add("CLEAR", Color.clear);
-        StringColorDictionary.Add("MAGENTA", Color.magenta);
+        StringColorDictionary.Add("blue", Color.blue);
+        StringColorDictionary.Add("yellow", Color.yellow);
+        StringColorDictionary.Add("black", Color.black);
+        StringColorDictionary.Add("grey", Color.grey);
+        StringColorDictionary.Add("gray", Color.gray);
+        StringColorDictionary.Add("white", Color.white);
+        StringColorDictionary.Add("red", Color.red);
+        StringColorDictionary.Add("cyan", Color.cyan);
+        StringColorDictionary.Add("green", Color.green);
+        StringColorDictionary.Add("clear", Color.clear);
+        StringColorDictionary.Add("magenta", Color.magenta);
     }
 }

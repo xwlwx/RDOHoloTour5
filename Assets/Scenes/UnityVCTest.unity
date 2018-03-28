@@ -470,6 +470,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1386836377 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114839130220837648, guid: 50d5a003ed32ff64fb3a6224eafde4ca,
+    type: 2}
+  m_PrefabInternal: {fileID: 784094635}
+  m_Script: {fileID: 11500000, guid: 40f80bd51e071ef4f8da44bc7d914bb1, type: 3}
 --- !u!1001 &1494814152
 Prefab:
   m_ObjectHideFlags: 0
@@ -798,6 +804,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SRGSFileName: TestGrammar.xml
   ObjectToModify: {fileID: 1052847512}
+  tractor: {fileID: 1386836377}
 --- !u!114 &1908556118
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -8,39 +8,15 @@ public class GrammarTesting : MonoBehaviour {
 
     public string SRGSFileName = "TestGrammar.xml";
     public GameObject ObjectToModify;
+    public TractorBehavior tractor;
 
     private GrammarRecognizer grammarRecognizer;
     private GrammarKeywordSwitcher gkws;
+    private ColorDicatationService cds;
     private Dictionary<string,string> grammarData;
     private bool colorFlag = false;
 
-	// Use this for initialization
-	void Start () {
-        if (string.IsNullOrEmpty(SRGSFileName))
-        {
-            Debug.LogError("Please specify an SRGS file name in GrammarManager.cs on " + name + ".");
-            Debug.LogError("Please check your GameObject settings in GrammarManager.cs on " + name + ".");
-            return;
-        }
-
-        // Instantiate the GrammarRecognizer, passing in the path to the SRGS file in the StreamingAssets folder.
-        try
-        {
-            grammarRecognizer = new GrammarRecognizer(Application.streamingAssetsPath +"/"+SRGSFileName);
-            grammarRecognizer.OnPhraseRecognized += GrammarRecognizer_OnPhraseRecognized;
-            //grammarRecognizer.Start();
-            Debug.Log("grammarrec started");
-            Debug.Log(grammarRecognizer.GrammarFilePath);
-        }
-        catch
-        {
-            // If the file specified to the GrammarRecognizer doesn't exist, let the user know.
-            Debug.LogError("Check the SRGS file name in the Inspector on GrammarManager.cs and that the file's in the StreamingAssets folder.");
-        }
-
-        gkws = GetComponent<GrammarKeywordSwitcher>();
-
-    }
+	
     
     public void GrammarRecognizer_OnPhraseRecognized(PhraseRecognizedEventArgs args)
     {
@@ -133,25 +109,36 @@ public class GrammarTesting : MonoBehaviour {
     {
         //color tractor...
         string obj;
-        string color;
+        string colorName;
+        Color color;
         bool successful = true;
         if(!grammarData.TryGetValue("object", out obj))
         {
             successful = false;
         }
-        if (!grammarData.TryGetValue("color", out color))
+        if (!grammarData.TryGetValue("color", out colorName))
         {
             successful = false;
         }
 
         if (successful)
         {
-            switch (obj)
+            successful = cds.getColorFromString(colorName, out color);
+            if (successful)
             {
-                case "tractor":
-                    break;
-                case "tires":
-                    break;
+                switch (obj)
+                {
+                    case "tractor":
+                        tractor.ChangeBodyColor(color);
+                        break;
+                    case "tires":
+                        tractor.ChangeTireColor(color);
+                        break;
+                }
+            }
+            else
+            {
+                Debug.LogError("grammarData doesn't contain valid color");
             }
         }
         else
@@ -177,9 +164,39 @@ public class GrammarTesting : MonoBehaviour {
             grammarRecognizer.Stop();
         }
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Use this for initialization
+    void Start()
+    {
+        if (string.IsNullOrEmpty(SRGSFileName))
+        {
+            Debug.LogError("Please specify an SRGS file name in GrammarManager.cs on " + name + ".");
+            Debug.LogError("Please check your GameObject settings in GrammarManager.cs on " + name + ".");
+            return;
+        }
+
+        // Instantiate the GrammarRecognizer, passing in the path to the SRGS file in the StreamingAssets folder.
+        try
+        {
+            grammarRecognizer = new GrammarRecognizer(Application.streamingAssetsPath + "/" + SRGSFileName);
+            grammarRecognizer.OnPhraseRecognized += GrammarRecognizer_OnPhraseRecognized;
+            //grammarRecognizer.Start();
+            Debug.Log("grammarrec started");
+            Debug.Log(grammarRecognizer.GrammarFilePath);
+        }
+        catch
+        {
+            // If the file specified to the GrammarRecognizer doesn't exist, let the user know.
+            Debug.LogError("Check the SRGS file name in the Inspector on GrammarManager.cs and that the file's in the StreamingAssets folder.");
+        }
+
+        gkws = GetComponent<GrammarKeywordSwitcher>();
+        cds = GetComponent<ColorDicatationService>();
+
+    }
+
+    // Update is called once per frame
+    void Update () {
 		
 	}
 }
