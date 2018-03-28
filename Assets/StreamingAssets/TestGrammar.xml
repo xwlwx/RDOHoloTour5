@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<grammar version="1.0" xml:lang="en-US" root="start" 
+         tag-format="semantics/1.0" xmlns="http://www.w3.org/2001/06/grammar">
+
+  <rule id="start" scope="public">
+    <one-of>
+      <item>
+        <ruleref uri="#locator"/>
+      </item>
+      <item>
+        <ruleref uri="#informer"/>
+      </item>
+      <item>
+        <ruleref uri="#painter"/>
+      </item>
+    </one-of>
+  </rule>  
+  
+  <rule id="locator" scope="public">
+    <item> Where </item>
+    <one-of>
+      <item> is </item>
+      <item> does </item>
+    </one-of>
+    <ruleref uri ="#name"/>
+    <item repeat="0-1"> sit </item>
+    <tag> out.context="location"; out.name = rules.name; </tag>
+  </rule>
+
+  <rule id="informer" scope="public">
+    <item> What does </item>
+    <ruleref uri="#name"/>
+    <item> do </item>
+    <tag> out.context="information"; out.name = rules.name; </tag>
+  </rule>
+
+  <rule id="painter" scope="public">
+    <item repeat="0-1"> Please </item>
+    <one-of>
+      <item> Set </item>
+      <item> Color </item>
+      <item> Paint </item>
+      <item> Modify </item>
+      <item> Change </item>
+    </one-of>
+    <item repeat="0-1"> the </item>
+    <ruleref uri="#modifiableObjects"/>
+    <tag> out.object = rules.modifiableObjects.object; </tag>
+    <item repeat="0-1"> color </item>
+    <item repeat="0-1"> to </item>
+    <ruleref uri="#colors"/>
+    <item repeat="0-1"> please </item>
+    <tag> out.context="paint"; out.color = rules.latest(); </tag>
+  </rule>
+
+  <rule id="modifiableObjects" scope="public">
+    <one-of>
+      <item>
+        tractor <tag> out.object = "tractor"; </tag>
+      </item>
+      <item>
+        <item repeat="0-1"> tractor </item>
+        tires
+        <tag> out.object = "tires"; </tag>
+      </item>
+    </one-of>
+  </rule>
+
+  <rule id="colors" scope="public">
+    <one-of>
+      <item>
+        red <tag> out.color="red"; </tag>
+      </item>
+      <item>
+        blue <tag> out.color="blue"; </tag>
+      </item>
+      <item>
+        yellow <tag> out.color="yellow"; </tag>
+      </item>
+      <item>
+        green <tag> out.color="green"; </tag>
+      </item>
+      <item>
+        white <tag> out.color="white"; </tag>
+      </item>
+      <item>
+        black <tag> out.color="black"; </tag>
+      </item>
+      <item>
+        cyan <tag> out.color="cyan"; </tag>
+      </item>
+    </one-of>
+  </rule>
+  
+  <rule id="name" scope="public">
+    <one-of>
+      <item>
+        Colton <tag> out.name="colton"; </tag>
+      </item>
+      <item>
+        Logan <tag> out.name="logan"; </tag>
+      </item>
+      <item>
+        Dave <tag> out.name="dave"; </tag>
+      </item>
+      <item>
+        Steve <tag> out.name="steve"; </tag>
+      </item>
+      <item>
+        Angie <tag> out.name="angie"; </tag>
+      </item>
+      <item>
+        Scott <tag> out.name="scott"; </tag>
+      </item>
+      <item>
+        Shannon <tag> out.name="shannon"; </tag>
+      </item>
+      <item>
+        Darrin <tag> out.name="darrin"; </tag>
+      </item>
+      <item>
+        Eric <tag> out.name="eric"; </tag>
+      </item>
+      <item>
+        Jeremy <tag> out.name="jeremy"; </tag>
+      </item>
+      <item>
+        Chad <tag> out.name="chad"; </tag>
+      </item>
+    </one-of>
+  </rule>
+  
+</grammar>
