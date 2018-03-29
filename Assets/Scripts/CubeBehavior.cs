@@ -5,7 +5,7 @@ using HoloToolkit.Unity.InputModule;
 
 public class CubeBehavior : MonoBehaviour, IInputClickHandler {
 
-    public GrammarTesting gt;
+    public GrammarParser gt;
 
     public void OnInputClicked(InputClickedEventData eventData)
     {

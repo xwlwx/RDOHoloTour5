@@ -3,18 +3,22 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.Windows.Speech;
+using HoloToolkit.Unity;
 
-public class GrammarTesting : MonoBehaviour {
+public class GrammarParser : MonoBehaviour {
 
     public string SRGSFileName = "TestGrammar.xml";
     public GameObject ObjectToModify;
     public TractorBehavior tractor;
+    public TextToSpeech HoloVoice;
+    public TextMesh GrammarStatusText;
 
     private GrammarRecognizer grammarRecognizer;
     private GrammarKeywordSwitcher gkws;
     private ColorDicatationService cds;
     private Dictionary<string,string> grammarData;
     private bool colorFlag = false;
+    private bool grammarStatusVisible = false;
 
 	
     
@@ -44,6 +48,7 @@ public class GrammarTesting : MonoBehaviour {
             grammarData.Add(i.key, i.values[0]);//IGNORES MULTIPLE VALUES
         }
         handleGrammarData();
+        onGrammarStatusResult(args.text);
         gkws.EnableKeywordListener();
 
     }
@@ -83,6 +88,7 @@ public class GrammarTesting : MonoBehaviour {
         {
             Debug.Log("Handling location context for " + name);
             //LOGAN code here
+            HoloVoice.StartSpeaking("Location info");
         }
         else
         {
@@ -98,6 +104,7 @@ public class GrammarTesting : MonoBehaviour {
         {
             Debug.Log("Handling information context for " + name);
             //LOGAN code here
+            HoloVoice.StartSpeaking("Information info");
         }
         else
         {
@@ -135,6 +142,7 @@ public class GrammarTesting : MonoBehaviour {
                         tractor.ChangeTireColor(color);
                         break;
                 }
+                HoloVoice.StartSpeaking("OK");
             }
             else
             {
@@ -152,8 +160,46 @@ public class GrammarTesting : MonoBehaviour {
         Debug.Log("GrammarRecognizer starting");
         if(grammarRecognizer != null && !grammarRecognizer.IsRunning)
         {
+            GrammarStatusText.text = "...";
+            GrammarStatusText.color = Color.green;
+            EnableGrammarStatus();
             grammarRecognizer.Start();
         }
+    }
+
+    public void EnableGrammarStatus()
+    {
+        if (grammarStatusVisible)
+        {
+            StopCoroutine(grammarStatusTimeout());
+        }
+        GrammarStatusText.GetComponent<Renderer>().enabled = true;
+        grammarStatusVisible = true;
+    }
+
+    public void FadeGrammarStatus()
+    {
+        StartCoroutine(grammarStatusTimeout());
+    }
+
+    private IEnumerator grammarStatusTimeout()
+    {
+        yield return new WaitForSeconds(2f);
+        DisableGrammarStatus();
+    }
+
+    private void onGrammarStatusResult(string result)
+    {
+        GrammarStatusText.text = result;
+        GrammarStatusText.color = Color.white;
+        EnableGrammarStatus();
+        FadeGrammarStatus();
+    }
+
+    public void DisableGrammarStatus()
+    {
+        GrammarStatusText.GetComponent<Renderer>().enabled = false;
+        grammarStatusVisible = false;
     }
 
     public void StopGrammarRecognizer()
@@ -192,6 +238,7 @@ public class GrammarTesting : MonoBehaviour {
 
         gkws = GetComponent<GrammarKeywordSwitcher>();
         cds = GetComponent<ColorDicatationService>();
+        DisableGrammarStatus();
 
     }
 

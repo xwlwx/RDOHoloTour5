@@ -8,7 +8,7 @@ public class GrammarKeywordSwitcher : MonoBehaviour {
     public TextMesh DisplayText;
     public AudioSource HeyHoloDing;
 
-    private GrammarTesting gt;
+    private GrammarParser gt;
     private SpeechInputSource sis;
 
     private bool grammarActive = false;
@@ -57,7 +57,7 @@ public class GrammarKeywordSwitcher : MonoBehaviour {
 
     public void Start()
     {
-        gt = GetComponent<GrammarTesting>();
+        gt = GetComponent<GrammarParser>();
         if(gt == null)
         {
             Debug.LogError("grammartesting null");
